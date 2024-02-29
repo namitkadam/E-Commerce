@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
-import { PiMoonLight } from "react-icons/pi";
-import { IoSunny } from "react-icons/io5";
+import { GrClose } from "react-icons/gr";
 import { TiShoppingCart } from "react-icons/ti";
 import { useState } from "react";
 import Button from "../Button";
@@ -25,7 +24,7 @@ export default function Header(params) {
                 {/* primary */}
               </div>
               <div className="hidden lg:flex gap-8 items-center text-[#3B3B3B] ">
-                <Link to="/">Home</Link>
+                <Link to="/E-Commerce">Home</Link>
                 <Link href="#">Products</Link>
                 <Link href="#">About Us</Link>
                 <Link href="#">Contact Us</Link>
@@ -38,13 +37,13 @@ export default function Header(params) {
                     <IoSunny className="h-6 w-6" />
                   </div> */}
                   <div className="flex gap-3 max-md:hidden">
-                    <Link to="/Login">
+                    <Link to="/E-Commerce/Login">
                       <Button classval={classBtn} name="Login" />
                     </Link>
-                    <Link to="/SignUp">
+                    <Link to="/E-Commerce/SignUp">
                       <Button classval={classBtn} name="SignUp" />
                     </Link>
-                    <Link to="/Cart">
+                    <Link to="/E-Commerce/Cart">
                       <div className="flex justify-center rounded-full border-solid border-2 border-[#F4DF4EFF] text-[#3B3B3B] py-1 px-3 hover:bg-[#F4DF4EFF] hover:text-gray-100">
                         <div className="text-2xl">
                           <TiShoppingCart />
@@ -57,7 +56,14 @@ export default function Header(params) {
                 {/* Mobile navigation toggle */}
                 <div className="lg:hidden flex items-center">
                   <button onClick={() => setToggleMenu(!toggleMenu)}>
-                    <FiMenu className="w-6 h-6" />
+                    <FiMenu
+                      className={`w-6 h-6 ${!toggleMenu ? "block" : "hidden"}`}
+                    />
+                  </button>
+                  <button onClick={() => setToggleMenu(!toggleMenu)}>
+                    <GrClose
+                      className={`w-6 h-6 ${!toggleMenu ? "hidden" : "block"}`}
+                    />
                   </button>
                 </div>
               </div>
@@ -71,7 +77,7 @@ export default function Header(params) {
           >
             <div className="p-6 w-full ">
               <div className="flex flex-col gap-8 font-bold tracking-wider">
-                <Link to="/">Home</Link>
+                <Link to="/E-Commerce">Home</Link>
                 <Link href="#">Products</Link>
                 <Link href="#">About Us</Link>
                 <Link href="#">Contact Us</Link>

@@ -1,41 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Logo from "../../Img/Logo.png";
 import Input from "../../components/Input";
 import { Link } from "react-router-dom";
+import { ECommerceContext } from "../../Context/context";
+
+const initCreateAccount = {
+  email: "",
+  password: "",
+};
 
 export default function Login() {
-  const [login, setLoing] = useState();
-  // const [formErrors, setFormErrors] = useState({});
-  // const [isSubmit, setIsSubmit] = useState(false);
+  const [login, setLoing] = useState({ ...initCreateAccount });
+  const { userDetails } = useContext(ECommerceContext);
 
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(formValues);
-  //   }
-  // }, [formErrors]);
+  const found = userDetails.find((obj) => {
+    return obj.name === "Sachine Kisan Nalawade";
+  });
+  console.log("found-->", found);
 
-  // const validate = (values) => {
-  //   const errors = {};
-  //   const ragex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  //   if (!values.username) {
-  //     errors.username = "Username is required";
-  //   }
-  //   if (!values.email) {
-  //     errors.email = "Email is required";
-  //   }
-  //   if (!values.password) {
-  //     errors.passwords = "Password is required";
-  //   }
-  //   return errors;
-  // };
-  // if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //   return (
-  //     <>
-  //       <div className="msg">Signed in successfully</div>
-  //     </>
-  //   );
-  // }
+  function onChangeval(e) {
+    const val = (res) => ({
+      ...res,
+      [e.target.name]: e.target.value,
+    });
+    setLoing(val);
+  }
+
+  const SumbmitLogin = (e) => {
+    e.preventDefault();
+
+    setLoing({ ...initCreateAccount });
+  };
 
   let classLabel = "block text-sm font-medium leading-6 text-gray-900";
   let classInput =
@@ -50,7 +45,7 @@ export default function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={SumbmitLogin}>
           <Input
             label="Email address"
             type="email"
@@ -58,34 +53,19 @@ export default function Login() {
             required
             name="email"
             calssInput={classInput}
-            // calssLabel={classLabel}
-            // onchange={onChangeval}
-            // value={createAccount.name}
+            calssLabel={classLabel}
+            onchange={onChangeval}
+            value={login.name}
           />
 
-          <div>
-            <div className="flex items-center justify-between">
-              <label for="password" className={classLabel}>
-                Password
-              </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-[#4f4f4f] hover:text-[#3B3B3B]"
-                >
-                  Forgot password?
-                </a>
-              </div>
-            </div>
-            <Input
-              type="password"
-              id="password"
-              required
-              name="password"
-              calssInput={classInput}
-              calssLabel={classLabel}
-            />
-          </div>
+          <Input
+            type="password"
+            id="password"
+            required
+            name="password"
+            calssInput={classInput}
+            calssLabel={classLabel}
+          />
 
           <div>
             <button
@@ -100,7 +80,7 @@ export default function Login() {
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?
           <Link
-            to="/SignUp"
+            to="/E-Commerce/SignUp"
             className="font-semibold leading-6 text-[#4f4f4f] hover:text-[#3B3B3B]"
           >
             Sign Up
@@ -109,4 +89,20 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+{
+  /* <div className="flex items-center justify-between">
+<label htmlFor="password" className={classLabel}>
+  Password
+</label>
+<div className="text-sm">
+  <a
+    href="#"
+    className="font-semibold text-[#4f4f4f] hover:text-[#3B3B3B]"
+  >
+    Forgot password?
+  </a>
+</div>
+</div> */
 }

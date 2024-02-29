@@ -15,22 +15,17 @@ const initCreateAccount = {
 export default function SignUp() {
   const [createAccount, setCreateAccount] = useState({ ...initCreateAccount });
   const { addAccount } = useContext(ECommerceContext);
-
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.log(formValues);
-  //   }
-  // }, [formErrors]);
+  let classLabel = "block text-sm font-medium leading-6 text-gray-900";
+  let classInput =
+    "block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
 
   const validate = (values) => {
     const errors = {};
-    const ragex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.username) {
-      errors.username = "Name is required";
+    if (!values.name) {
+      errors.name = "Username is required";
     }
     if (!values.email) {
       errors.email = "Email is required";
@@ -40,29 +35,29 @@ export default function SignUp() {
     }
     return errors;
   };
-  // if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //   return (
-  //     <>
-  //       <div className="msg">Signed in successfully</div>
-  //     </>
-  //   );
-  // }
 
-  let classLabel = "block text-sm font-medium leading-6 text-gray-900";
-  let classInput =
-    "block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6";
+  if (Object.keys(formErrors).length === 0 && isSubmit) {
+    return (
+      <>
+        <div className="msg">Signed in successfully</div>
+        {(window.location = "/E-Commerce/Login")}
+      </>
+    );
+  }
 
   const SumbmitAccount = (e) => {
     e.preventDefault();
-    addAccount(createAccount);
-    setFormErrors(validate(createAccount));
     setIsSubmit(true);
+    if (!isSubmit) return addAccount(createAccount);
+
+    setFormErrors(validate(createAccount));
+    setCreateAccount({ ...initCreateAccount });
   };
 
   function onChangeval(e) {
     const val = (res) => ({
       ...res,
-      [e.target.username]: e.target.value,
+      [e.target.name]: e.target.value,
     });
     setCreateAccount(val);
   }
@@ -77,7 +72,7 @@ export default function SignUp() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-3" onSubmit={SumbmitAccount}>
+        <form className="space-y-1.5" onSubmit={SumbmitAccount}>
           <Input
             label="Your name"
             type="text"
@@ -90,7 +85,7 @@ export default function SignUp() {
             onchange={onChangeval}
             value={createAccount.name}
           />
-          {/* <p className="text-red-600">{formErrors.username}</p> */}
+          <p className="text-red-600">{formErrors.name}</p>
 
           <Input
             label="Mobile number"
@@ -141,7 +136,7 @@ export default function SignUp() {
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have an account?
           <Link
-            to="/Login"
+            to="/E-Commerce/Login"
             className="font-semibold leading-6 text-[#4f4f4f] hover:text-[#3B3B3B]"
           >
             Login

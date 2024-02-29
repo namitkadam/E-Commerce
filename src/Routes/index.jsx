@@ -8,15 +8,15 @@ import SignUp from "../Pages/SignUp";
 import Checkout from "../components/Checkout";
 export const PublicRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/E-Commerce",
     element: <RootLayout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/Cart", element: <Cart /> },
-      { path: "/Pyament", element: <Pyament /> },
-      { path: "/Login", element: <Login /> },
-      { path: "/SignUp", element: <SignUp /> },
-      { path: "/Checkout", element: <Checkout /> },
+      { path: "/E-Commerce/Cart", element: <Cart /> },
+      { path: "/E-Commerce/Pyament", element: <Pyament /> },
+      { path: "/E-Commerce/Login", element: <Login /> },
+      { path: "/E-Commerce/SignUp", element: <SignUp /> },
+      { path: "/E-Commerce/Checkout", element: <Checkout /> },
     ],
   },
 ]);
